@@ -13,8 +13,8 @@ export const Table = ({ rows }: { rows: Row[] }) => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr>
-                {headings.map((heading: string) => (
-                  <th className="sticky z-10 top-0 text-sm leading-6 font-semibold text-slate-700 bg-white p-0 dark:bg-slate-900 dark:text-slate-300">
+                {headings.map((heading: string,i) => (
+                  <th key={i} className="sticky z-10 top-0 text-sm leading-6 font-semibold text-slate-700 bg-white p-0 dark:bg-slate-900 dark:text-slate-300">
                     <div className="py-2 pl-2 border-b border-slate-200 dark:border-slate-400/20">
                       {heading}
                     </div>
@@ -24,12 +24,12 @@ export const Table = ({ rows }: { rows: Row[] }) => {
             </thead>
             <tbody className="align-baseline">
               {rows.map((row) => (
-                  <tr>
+                  <tr key={row.offset}>
                     <td
                       className="w-1/6 border-b border-slate-200 font-mono text-slate-500"
                     >
                     <span className="pl-4">
-                      {row.value}
+                      {row.offset}
                       </span>
                     </td>
                     <td
