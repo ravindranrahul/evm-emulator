@@ -2,6 +2,11 @@ import { Contract } from "./contract";
 import EVM from "./evm";
 import { JumpTable, newInstructionSet } from "./jumpTable";
 import { OpCode } from "./opcodes";
+import { Stack } from "./stack";
+
+class ScopeContext {
+  stack: Stack = new Stack();
+}
 
 export class EVMInterpreter {
   evm: EVM;
@@ -9,20 +14,23 @@ export class EVMInterpreter {
 
   constructor(evm: EVM) {
     this.evm = evm;
-    this.jumpTable = newInstructionSet()
+    this.jumpTable = newInstructionSet();
   }
 
-  run(contract: Contract, input: Uint8Array) : { result ?: Uint8Array, error?: string} {
+  run(
+    contract: Contract,
+    input: []
+  ): { result?: Uint8Array; error?: string } {
     // Increment the call depth which is restricted to 1024
     this.evm.depth++;
 
+    let context = new ScopeContext(); 
+    context.stack.push(123)
+    console.log(context.stack.pop())
     //Skip execution if contract has no code
-    if(contract.code.length==0) return {}
+    if (contract.code.length == 0) return {};
 
-    let op: OpCode;
-    op=0x0;
-    let operation = this.jumpTable[OpCode[op]]
-    return {}
-
+    console.log(context)
+    return {};
   }
 }

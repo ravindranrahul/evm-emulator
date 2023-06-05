@@ -7,22 +7,15 @@ export const stackSlice = createSlice({
   name: "stack",
   initialState,
   reducers: {
-    stackPush: (state, action: PayloadAction<IndexedItem>) => {
-      state.push(action.payload);
+    stackPush: (state, action: PayloadAction<number>) => {
+      state.push({ offset: state.length, value: action.payload });
     },
-    update: (_, action: PayloadAction<IndexedItem[]>) => action.payload,
+    statePop: (state) => {
+      state.pop();
+    },
   },
 });
 
-// export const stackPop = () => {
-//   let dispatch = useAppDispatch();
-//   let stack = useAppSelector((state) => state.stack);
-//
-//   let top = stack.pop();
-//   dispatch(stackSlice.actions.update(stack));
-//   return top;
-// };
-
-export const { stackPush } = stackSlice.actions;
+export const { stackPush, statePop } = stackSlice.actions;
 
 export default stackSlice.reducer;

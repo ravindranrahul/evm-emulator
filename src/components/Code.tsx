@@ -5,14 +5,22 @@ import { hex2Byte } from "../core/common/bytes";
 import EVM from "../core/vm/evm";
 import { Title } from "./ui/Title";
 
+let fromAddr = hex2Byte('0x2021');
+let contractAddr = hex2Byte('0x2022')
+
 export const Code = () => {
   const [code, setCode] = useState("Push1 0x50");
   const push = () => {
     let it = new InstructionIterator(code);
     let evm = new EVM();
-    evm.stateDB.create(hex2Byte('0x2020'))
-    console.log(it.assemble()) 
+  
+    //deploy the code
+    evm.stateDB.create(contractAddr)
+  
+    // run code
+    evm.callCode(fromAddr,contractAddr,[])
   };
+
 
 
   const onCodeUpdate = (code: string) => {

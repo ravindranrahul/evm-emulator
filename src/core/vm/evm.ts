@@ -26,7 +26,7 @@ export default class EVM {
     if (!account) throw VM_ERROR.ACCOUNT_NOT_FOUND;
     contract.setCallCode(contractAddress, account.code);
 
-    //   this.interpreter.run(contract, input);
+    this.interpreter.run(contract, []);
   };
 
   error() {}
