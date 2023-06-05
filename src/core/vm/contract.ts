@@ -1,4 +1,4 @@
-import { Address } from "../common/types";
+import { Address } from "../common/address";
 
 // Contract represents an ethereum contract in the state database. It contains
 // the contract code, calling arguments.
@@ -6,14 +6,14 @@ export class Contract {
   //Context info
   callerAddress: Address;
 
-  code: [] = [];
-  codeAddress: Address = new Uint8Array(0x0);
+  code: string = "";
+  codeAddress: Address = new Address("0x0");
 
   constructor(callerAddress: Address) {
     this.callerAddress = callerAddress;
   }
 
-  setCallCode(codeAddress: Address, code: []) {
+  setCallCode(codeAddress: Address, code: string) {
     this.codeAddress = codeAddress;
     this.code = code;
   }

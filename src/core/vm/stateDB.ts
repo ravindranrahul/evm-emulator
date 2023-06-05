@@ -1,24 +1,29 @@
-import { Address } from "../common/types";
+import { Address } from "../common/address";
 
 export class Account {
-  code: [] = [];
+  code: string;
   nonce = 0;
   balance = 0;
+
+  constructor(code = "") {
+    this.code = code;
+  }
 }
 // State provides a simple emulation the Ethereum state trie.
 export class StateDB {
-  state: Map<Address, Account> = new Map();
+  state: Map<string, Account> = new Map();
 
-  dump() {
-    console.log(this.state);
-  }
+  create(address: Address, code: string = "") {
+    // *** Convert Address to string ***
+    // It's important to understand that when comparing objects as keys,
+    // JavaScript compares them by reference.
+    // This means that two different objects with identical contents
+    // will not be considered equal unless they reference the same memory location.
 
-  create(address: Address) {
-    this.state.set(address, new Account());
-    console.log(this.state);
+    this.state.set(address.toString(), new Account(code));
   }
 
   getAccount(address: Address) {
-    return this.state.get(address);
+    return this.state.get(address.toString());
   }
 }

@@ -17,20 +17,16 @@ export class EVMInterpreter {
     this.jumpTable = newInstructionSet();
   }
 
-  run(
-    contract: Contract,
-    input: []
-  ): { result?: Uint8Array; error?: string } {
+  run(contract: Contract, input: []): { result?: Uint8Array; error?: string } {
     // Increment the call depth which is restricted to 1024
     this.evm.depth++;
 
-    let context = new ScopeContext(); 
-    context.stack.push(123)
-    console.log(context.stack.pop())
-    //Skip execution if contract has no code
-    if (contract.code.length == 0) return {};
+    let context = new ScopeContext();
 
-    console.log(context)
+    //Skip execution if contract has no code
+    if (!contract.code.length) return {};
+
+    console.log(contract.code);
     return {};
   }
 }

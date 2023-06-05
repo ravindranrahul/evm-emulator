@@ -1,4 +1,4 @@
-import { Address } from "../common/types";
+import { Address } from "../common/address";
 import { Contract } from "./contract";
 import { VM_ERROR } from "./errors";
 import { EVMInterpreter } from "./interpreter";
@@ -20,14 +20,18 @@ export default class EVM {
   // CallCode differs from Call in the sense that it executes the given address'
   // code with the caller as context.
   callCode = (caller: Address, contractAddress: Address, input: []) => {
+    let contractAccount = this.stateDB.getAccount(contractAddress);
+    if (!contractAccount) throw VM_ERROR.ACCOUNT_NOT_FOUND;
+
     let contract = new Contract(caller);
+    contract.setCallCode(contractAddress, contractAccount.code);
 
-    let account = this.stateDB.getAccount(contractAddress);
-    if (!account) throw VM_ERROR.ACCOUNT_NOT_FOUND;
-    contract.setCallCode(contractAddress, account.code);
-
-    this.interpreter.run(contract, []);
+    this.interpreter.run(contract, input);
   };
+
+  create(caller: Address, code: string) {
+    this.stateDB.create(new Address('0x2022'), code);
+  }
 
   error() {}
 }

@@ -16,7 +16,7 @@ export type JumpTable = {
   [key: string]: Operation;
 };
 
-const opStop = (pc: number, interpreter: EVMInterpreter) => {
+const opAdd = (pc: number, interpreter: EVMInterpreter) => {
   return {};
 };
 
@@ -25,8 +25,8 @@ const opStop = (pc: number, interpreter: EVMInterpreter) => {
 // See: ethereum/go-ethereum/core/vm/jump_table.go 
 export const newInstructionSet = (): JumpTable => {
   const tbl: JumpTable = {
-    STOP: {
-      execute: opStop,
+    ADD: {
+      execute: opAdd,
       minStack: 2,
       maxStack: 4,
     },
