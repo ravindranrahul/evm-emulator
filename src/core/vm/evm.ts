@@ -24,13 +24,13 @@ export default class EVM {
     if (!contractAccount) throw VM_ERROR.ACCOUNT_NOT_FOUND;
 
     let contract = new Contract(caller);
-    contract.setCallCode(contractAddress, contractAccount.code);
+    contract.setCallCode(contractAddress, contractAccount.getCode());
 
     this.interpreter.run(contract, input);
   };
 
   create(caller: Address, code: string) {
-    this.stateDB.create(new Address('0x2022'), code);
+    this.stateDB.create(new Address("0x2022"), code);
   }
 
   error() {}

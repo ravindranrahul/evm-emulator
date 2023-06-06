@@ -1,5 +1,5 @@
 // Returns the bytes represented by the hexadecimal string
-export function hex2Byte(hex: string): Uint8Array {
+export function hex2Bytes(hex: string): Uint8Array {
   hex = hex.startsWith("0x") ? hex.slice(2) : hex; // Remove the '0x' prefix if present
 
   if (hex.length % 2 !== 0) {
@@ -35,4 +35,13 @@ const isHexCharacter = (c: string): boolean => {
   return (
     ("0" <= c && c <= "9") || ("a" <= c && c <= "f") || ("A" <= c && c <= "F")
   );
+};
+
+export const bytes2Hex = (bytes: Uint8Array, prefix = false) => {
+  let hex: string = "";
+  bytes.forEach((byte) => {
+    hex.concat(byte.toString());
+  });
+
+  return prefix ? `0x.${hex}` : hex;
 };

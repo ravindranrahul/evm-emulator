@@ -1,7 +1,7 @@
 // EVM Assembler
 // EVM Assembly (string) => Uint8Array (EVM bytecode)
 // Ref: https://github.com/ethereum/go-ethereum/blob/master/core/asm/asm.go
-import { has0xPrefix, hex2Byte, validateHex } from "../common/bytes";
+import { has0xPrefix, validateHex } from "../common/bytes";
 import { isPush, OpCode } from "../vm/opcodes";
 
 export class InstructionIterator {
@@ -56,7 +56,7 @@ export class InstructionIterator {
   assemble() {
     let bytecode: string = "";
     while (this.next()) {
-      bytecode = bytecode.concat(this.op.toString());
+      bytecode = bytecode.concat(this.op.toString(16).padStart(2, '0'));
       if (this.arg.length) {
         bytecode = bytecode.concat(this.arg.join(""));
       }

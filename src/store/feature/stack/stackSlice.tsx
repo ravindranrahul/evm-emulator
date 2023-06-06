@@ -7,6 +7,9 @@ export const stackSlice = createSlice({
   name: "stack",
   initialState,
   reducers: {
+    stackClear: (state) => {
+      state = initialState;
+    },
     stackPush: (state, action: PayloadAction<number>) => {
       state.push({ offset: state.length, value: action.payload });
     },
@@ -16,6 +19,6 @@ export const stackSlice = createSlice({
   },
 });
 
-export const { stackPush, statePop } = stackSlice.actions;
+export const { stackPush, statePop, stackClear } = stackSlice.actions;
 
 export default stackSlice.reducer;

@@ -1,4 +1,4 @@
-import { has0xPrefix, hex2Byte, validateHex } from "./bytes";
+import { has0xPrefix, hex2Bytes, validateHex } from "./bytes";
 
 export class Address {
   hex: string;
@@ -14,7 +14,7 @@ export class Address {
   }
 
   toByte() {
-    return hex2Byte(this.hex);
+    return hex2Bytes(this.hex);
   }
 
   toString() {

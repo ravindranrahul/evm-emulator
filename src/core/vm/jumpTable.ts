@@ -1,9 +1,5 @@
-import { EVMInterpreter } from "./interpreter";
+import instructions, { ExecutionFunc } from "./instruction";
 
-type ExecutionFunc = (
-  pc: number,
-  interpreter: EVMInterpreter
-) => { result?: Uint8Array[]; error?: Error };
 
 type Operation = {
   execute: ExecutionFunc;
@@ -16,9 +12,6 @@ export type JumpTable = {
   [key: string]: Operation;
 };
 
-const opAdd = (pc: number, interpreter: EVMInterpreter) => {
-  return {};
-};
 
 // This simple version of EVM does not have release wise mapping of instructions.
 // Rather, it supports ALL instructions until the shanghai release.
@@ -26,10 +19,16 @@ const opAdd = (pc: number, interpreter: EVMInterpreter) => {
 export const newInstructionSet = (): JumpTable => {
   const tbl: JumpTable = {
     ADD: {
-      execute: opAdd,
+      execute: instructions.opAdd,
       minStack: 2,
       maxStack: 4,
     },
+
+    PUSH1:{
+      execute:instructions.opPush1,
+      minStack:2,
+      maxStack:4,
+    }
   };
 
   //TODO: add validation

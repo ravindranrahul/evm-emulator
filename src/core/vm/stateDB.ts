@@ -1,12 +1,17 @@
 import { Address } from "../common/address";
+import { hex2Bytes } from "../common/bytes";
 
 export class Account {
-  code: string;
+  private code : string;
   nonce = 0;
   balance = 0;
 
   constructor(code = "") {
     this.code = code;
+  }
+
+  getCode() {
+    return hex2Bytes(this.code);
   }
 }
 // State provides a simple emulation the Ethereum state trie.
